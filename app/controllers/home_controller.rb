@@ -16,9 +16,16 @@ class HomeController < ApplicationController
 				resp = JSON.parse resp_unparsed.body
 				current_weather = resp["currently"]
 				temp = current_weather["temperature"]
+				if temp < 60
+					message = "It's colder than my wife's ex!"
+				elsif temp >= 60 and temp < 75
+					message = "Weather is fine, just like Kanye. Kanye is so fine."
+				else
+					message = "DAMNN IT'S HOT OUTSIDE!"
+				end
 				summary = current_weather["summary"]
 				summary.downcase!
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{temp} degrees outside -- #{summary}."}.to_json
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{temp} degrees outside -- #{summary}. #{message}"}.to_json
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
