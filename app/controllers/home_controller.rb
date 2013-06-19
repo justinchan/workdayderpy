@@ -16,9 +16,9 @@ class HomeController < ApplicationController
 
 				url = URI.parse('https://api.forecast.io/forecast/e9ae28050324270567556f2425a62c3f/37.6933,-121.9241')
 				resp = Net::HTTP.get_response(url)
-				current_weather = resp[:currently]
-				temp = current_weather[:temperature]
-				summary = current_weather[:summary]
+				current_weather = resp["currently"]
+				temp = current_weather["temperature"]
+				summary = current_weather["summary"]
 				summary.downcase!
 				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{temp} degrees outside -- #{summary}."}.to_json
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
