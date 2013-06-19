@@ -25,6 +25,7 @@ class HomeController < ApplicationController
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
+			
 			end
 		end
 	end
