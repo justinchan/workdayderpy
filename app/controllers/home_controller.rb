@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 		require 'net/http'
 		require 'json'
 		url = URI.parse('https://api.groupme.com/v3/bots/post')
-		post_args = {"bot_id" => '3b6f5a75557f6eead5ece9a0de', "text" => "Poke whose face?"}.to_json
+		post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Poke whose face?"}.to_json
 		a = ActiveSupport::JSON.decode(post_args)
 		text = params[:text].downcase
 		if params[:name] != 'Lady Gaga'
