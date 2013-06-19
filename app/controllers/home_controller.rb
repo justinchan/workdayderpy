@@ -29,7 +29,7 @@ class HomeController < ApplicationController
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
-			elsif text["thanks kanye"]
+			elsif text["thanks kanye"] != nil
 				first_name_temp = params[:name]
 				first_name = first_name_temp.split(" ").first
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
