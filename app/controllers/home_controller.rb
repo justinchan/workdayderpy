@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 
 				url = URI.parse('https://api.forecast.io/forecast/e9ae28050324270567556f2425a62c3f/37.6933,-121.9241')
 				resp_unparsed = Net::HTTP.get_response(url)
-				resp = JSON.parse resp_unparsed
+				resp = JSON.parse resp_unparsed.body
 				current_weather = resp["currently"]
 				temp = current_weather["temperature"]
 				summary = current_weather["summary"]
