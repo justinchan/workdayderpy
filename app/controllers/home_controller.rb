@@ -6,11 +6,21 @@ class HomeController < ApplicationController
 
 		if params[:name] != 'Lady Gaga'
 			if text["hot tub"] != nil
-				if text.split(" ").include?('hot') and (text.split(" ").include?('tub') or text.split(" ").match(/tub\W*\z/) != nil) #add extra shit here 
-					url = URI.parse('https://api.groupme.com/v3/bots/post')
-					post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Did someone say HOT TUB?!"}.to_json
-					a = ActiveSupport::JSON.decode(post_args)
-					resp, data = Net::HTTP.post_form(url, a)
+				if text.split(" ").include?('hot')
+					temp_bool = false
+					if text.split(" ").include?('tub')
+						temp_bool = true
+					text.split(" ").each do |temp_text| 
+						if temp_text.match(/tub\W*\z/) != nil
+							temp_bool = true
+						end
+					end 
+					if temp_bool
+						url = URI.parse('https://api.groupme.com/v3/bots/post')
+						post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Did someone say HOT TUB?!"}.to_json
+						a = ActiveSupport::JSON.decode(post_args)
+						resp, data = Net::HTTP.post_form(url, a)
+					end
 				end
 			elsif text == 'kanye weather'
 				url = URI.parse('https://api.forecast.io/forecast/e9ae28050324270567556f2425a62c3f/37.6933,-121.9241?exclude=[minutely,hourly,daily,alerts,flags]')
