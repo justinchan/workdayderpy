@@ -10,6 +10,7 @@ class HomeController < ApplicationController
 					temp_bool = false
 					if text.split(" ").include?('tub')
 						temp_bool = true
+					end
 					text.split(" ").each do |temp_text| 
 						if temp_text.match(/tub\W*\z/) != nil
 							temp_bool = true
