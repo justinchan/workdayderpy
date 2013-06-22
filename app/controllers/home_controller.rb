@@ -7,7 +7,7 @@ class HomeController < ApplicationController
 		if params[:name] != 'Lady Gaga'
 			if text["poker"] != nil
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Pokerface"}.to_json
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "P-p-p-p-pokerface"}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			elsif text == 'kanye weather'
