@@ -41,7 +41,7 @@ task :tabulate do
 	second_place = top_chatter.max_by{|k,v| v} 
 	second_name = second_place[0]
 	second_value = second_place[1]
-	top_chatter[winner_name] = 0
+	top_chatter[second_name] = 0
 	third_place = top_chatter.max_by{|k,v| v} 
 	third_name = third_place[0]
 	third_value = third_place[1]
