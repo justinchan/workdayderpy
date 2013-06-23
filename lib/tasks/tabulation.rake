@@ -2,7 +2,7 @@ desc "Do the tabulation"
 task :tabulate do 
 	require 'net/http'
 	require 'json'
-	url = URI.parse('https://api.groupme.com/groups/4767983/messages?token=ab32b920b6940130a343663e2468da7d')
+	url = URI.parse('https://api.groupme.com/groups/4600386/messages?token=ab32b920b6940130a343663e2468da7d')
 	resp_unparsed = Net::HTTP.get_response(url)
 	resp = JSON.parse resp_unparsed.body
 	resp = resp["response"]
