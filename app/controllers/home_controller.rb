@@ -38,6 +38,7 @@ class HomeController < ApplicationController
 				messages = resp["messages"]
 				not_done_yet = true
 				running_count = 0
+				message_id = 0
 				messages.each do |message|
 					running_count = running_count + 1
 					message_id = message["id"]
@@ -48,6 +49,7 @@ class HomeController < ApplicationController
 					resp = JSON.parse resp_unparsed.body
 					resp = resp["response"]
 					messages = resp["messages"]
+					message_id = 0
 					messages.each do |message|
 						running_count = running_count + 1
 						message_id = message["id"]
