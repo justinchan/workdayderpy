@@ -64,7 +64,7 @@ class HomeController < ApplicationController
 				end
 				winner_pair = top_chatter.max_by{|k,v| v}
 				winner_name = winner_pair[0]
-				winner_value = winner_value[1]
+				winner_value = winner_pair[1]
 
 
 
