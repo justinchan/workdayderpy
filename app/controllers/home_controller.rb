@@ -33,9 +33,9 @@ class HomeController < ApplicationController
 				url = URI.parse('https://api.groupme.com/groups/4767983/messages?token=ab32b920b6940130a343663e2468da7d')
 				resp_unparsed = Net::HTTP.get_response(url)
 				resp = JSON.parse resp_unparsed.body
-				resp = resp[:response]
-				count = resp[:count]
-				messages = resp[:messages]
+				resp = resp["response"]
+				count = resp["count"]
+				messages = resp["messages"]
 				temp_counter = 0
 				messages.each do |message|
 					temp_counter = temp_counter + 1
