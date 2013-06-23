@@ -47,7 +47,7 @@ class HomeController < ApplicationController
 					message_id = message["id"]
 				end
 				while(not_done_yet)
-					url = URI.parse("https://api.groupme.com/groups/4767983/messages?token=ab32b920b6940130a343663e2468da7d&before_id=#{message_id}")
+					url = URI.parse("https://api.groupme.com/groups/4600386/messages?token=ab32b920b6940130a343663e2468da7d&before_id=#{message_id}")
 					resp_unparsed = Net::HTTP.get_response(url)
 					resp = JSON.parse resp_unparsed.body
 					resp = resp["response"]
