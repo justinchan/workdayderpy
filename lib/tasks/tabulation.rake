@@ -37,11 +37,15 @@ task :tabulate do
 	winner_pair = top_chatter.max_by{|k,v| v}
 	winner_name = winner_pair[0]
 	winner_value = winner_pair[1]
+	top_chatter[winner_name] = 0
+	second_place = top_chatter.max_by{|k,v| v} 
+	second_name = second_place[0]
+	second_value = second_place[1]
 
 
 
 	url = URI.parse('https://api.groupme.com/v3/bots/post')
-	post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{count} total messages. I counted #{running_count}. Winner is #{winner_name} with #{winner_value} messages."}.to_json
+	post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{count} total messages. I counted #{running_count}. Winner: #{winner_name} with #{winner_value} messages. Second place: #{second_name} with #{second_value} messages."}.to_json
 	a = ActiveSupport::JSON.decode(post_args)
 	resp, data = Net::HTTP.post_form(url, a)
 end
