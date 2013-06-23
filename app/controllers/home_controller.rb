@@ -29,11 +29,21 @@ class HomeController < ApplicationController
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
-			elsif text["thanks kanye"] != nil
-				first_name_temp = params[:name]
-				first_name = first_name_temp.split(" ").first
+			elsif text == 'kanye stats'
+				url = URI.parse('https://api.groupme.com/groups/4767983/messages?token=ab32b920b6940130a343663e2468da7d')
+				resp_unparsed = Net::HTTP.get_response(url)
+				resp = JSON.parse resp_unparsed.body
+
+				count = resp[:count]
+				messages = resp[:messages]
+				temp_counter = 0
+				messages.each do |message|
+					temp_counter = temp_counter + 1
+				end
+
+
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Kanye always got your back, #{first_name}."}.to_json
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{count} total messages. I counted #{temp_counter}."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			end
