@@ -39,7 +39,7 @@ task :tabulate do
 		winner_pair = top_chatter.max_by{|k,v| v}
 		winner_name = winner_pair[0]
 		winner_value = winner_pair[1]
-		winner_string << "#{i}." + winner_name + " " winner_value + " "
+		winner_string << "#{i}. #{winner_name} #{winner_value} " 
 		top_chatter[winner_name] = 0
 	end
 	url = URI.parse('https://api.groupme.com/v3/bots/post')
