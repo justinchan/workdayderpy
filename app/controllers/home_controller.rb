@@ -79,7 +79,7 @@ class HomeController < ApplicationController
 				resp, data = Net::HTTP.post_form(url, a)
 			elsif text.split(" ").length >= 3 and text.split(" ").first == "kanye" and text.split(" ")[1] == "review"
 				total_len = text.split(" ").length
-				movie_title = text.split(" ")[2, total_len]
+				movie_title = params[:text].split(" ")[2, total_len]
 				real_movie_title = ""
 				changed_title = ""
 				movie_title_len_mod = movie_title.length-1
@@ -105,10 +105,12 @@ class HomeController < ApplicationController
 					end
 				end
 
+				test_output = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=vzfnz8223sf79wn5x5f8bxa9&page_limit=10&q=#{changed_title}"
+
 
 
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "According to Rotten Tomatoes, #{movie_title} got an #{movie_rating}%."}.to_json
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "According to Rotten Tomatoes, #{real_movie_title} got a rating of #{movie_rating}%. #{test_output}"}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			end
