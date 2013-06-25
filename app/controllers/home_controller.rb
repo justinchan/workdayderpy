@@ -101,7 +101,7 @@ class HomeController < ApplicationController
 				movies.each do |movie|
 					if movie["title"].downcase == real_movie_title
 						movie_id = movie["id"]
-						movie_rating = movie["ratings"]["critics_score"]
+						movie_rating = movie["critics_consensus"]
 					end
 				end
 
