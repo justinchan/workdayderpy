@@ -85,8 +85,8 @@ class HomeController < ApplicationController
 				movie_title_len_mod = movie_title.length-1
 				for i in 0..movie_title_len_mod
 					if i == movie_title_len_mod
-						changed_title << movie_title[i]
-						real_movie_title << movie_title[i]
+						changed_title << "#{movie_title[i]}"
+						real_movie_title << "#{movie_title[i]}"
 					else
 						changed_title << "#{movie_title[i]}&"
 						real_movie_title << "#{movie_title} "
@@ -110,7 +110,7 @@ class HomeController < ApplicationController
 
 
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "According to Rotten Tomatoes, #{real_movie_title} got a rating of #{movie_rating}%. #{test_output}"}.to_json
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "No problem. According to Rotten Tomatoes, #{real_movie_title} got a rating of #{movie_rating}%."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			end
