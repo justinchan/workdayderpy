@@ -77,6 +77,36 @@ class HomeController < ApplicationController
 				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Tabulating results..."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
+			elsif text.split(" ").length >= 3 and text.split(" ").first == "kanye" and text.split(" ")[1] == "review"
+				total_len = text.split(" ").length
+				movie_title = text.split(" ")[2, total_len-1]
+				changed_title = ""
+				movie_title_len_mod = movie_title.length
+				for i in 0..movie_title_len_mod
+					if i == movie_title_len_mod
+						changed_title << movie_title[i]
+					else
+						changed_title << "#{movie_title[i]}&"
+				end
+				url = URI.parse("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=vzfnz8223sf79wn5x5f8bxa9&page_limit=10&q=#{changed_title}")
+				resp_unparsed = Net::HTTP.get_response(url)
+				resp = JSON.parse resp_unparsed.body
+				movies = resp["movies"]
+				movie_rating = ""
+				movie_id = ""
+				movies.each do |movie|
+					if movie["title"].downcase == movie_title
+						movie_id = movie["id"]
+						movie_rating = movie["ratings"]["critics_score"]
+					end
+				end
+
+
+
+				url = URI.parse('https://api.groupme.com/v3/bots/post')
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "According to Rotten Tomatoes, #{movie_title} got an #{movie_rating}%."}.to_json
+				a = ActiveSupport::JSON.decode(post_args)
+				resp, data = Net::HTTP.post_form(url, a)
 			end
 		end
 	end
