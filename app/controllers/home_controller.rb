@@ -80,13 +80,17 @@ class HomeController < ApplicationController
 			elsif text.split(" ").length >= 3 and text.split(" ").first == "kanye" and text.split(" ")[1] == "review"
 				total_len = text.split(" ").length
 				movie_title = text.split(" ")[2, total_len]
+				real_movie_title = ""
 				changed_title = ""
 				movie_title_len_mod = movie_title.length-1
 				for i in 0..movie_title_len_mod
 					if i == movie_title_len_mod
 						changed_title << movie_title[i]
+						real_movie_title << movie_title[i]
 					else
 						changed_title << "#{movie_title[i]}&"
+						real_movie_title << "#{movie_title} "
+					end
 				end
 				url = URI.parse("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=vzfnz8223sf79wn5x5f8bxa9&page_limit=10&q=#{changed_title}")
 				resp_unparsed = Net::HTTP.get_response(url)
@@ -95,7 +99,7 @@ class HomeController < ApplicationController
 				movie_rating = ""
 				movie_id = ""
 				movies.each do |movie|
-					if movie["title"].downcase == movie_title
+					if movie["title"].downcase == real_movie_title
 						movie_id = movie["id"]
 						movie_rating = movie["ratings"]["critics_score"]
 					end
