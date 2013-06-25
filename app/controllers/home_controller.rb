@@ -77,7 +77,7 @@ class HomeController < ApplicationController
 				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Tabulating results..."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
-			elsif text.split(" ").length >= 3 and text.split(" ").first == "kanye" and text.split(" ")[1] == "review"
+			elsif text.split(" ").length >= 3 and text.split(" ").first == "kanye" and text.split(" ")[1] == "review" and params[:name] == "Justin Chan"
 				total_len = text.split(" ").length
 				movie_title = params[:text].split(" ")[2, total_len]
 				real_movie_title = ""
