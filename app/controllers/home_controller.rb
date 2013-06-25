@@ -79,7 +79,7 @@ class HomeController < ApplicationController
 				resp, data = Net::HTTP.post_form(url, a)
 			elsif text.split(" ").length >= 3 and text.split(" ").first == "kanye" and text.split(" ")[1] == "review"
 				total_len = text.split(" ").length
-				movie_title = text.split(" ")[2, total_len-1]
+				movie_title = text.split(" ")[2, total_len]
 				changed_title = ""
 				movie_title_len_mod = movie_title.length-1
 				for i in 0..movie_title_len_mod
