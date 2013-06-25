@@ -98,10 +98,12 @@ class HomeController < ApplicationController
 				movies = resp["movies"]
 				movie_rating = ""
 				movie_id = ""
+				movie_consensus = ""
 				movies.each do |movie|
-					if movie["title"].downcase == real_movie_title
+					if movie["title"].downcase == real_movie_title.downcase
 						movie_id = movie["id"]
-						movie_rating = movie["critics_consensus"]
+						movie_rating = movie["ratings"]["critics_score"]
+						movie_consensus = movie["critics_consensus"]
 					end
 				end
 
@@ -110,7 +112,7 @@ class HomeController < ApplicationController
 
 
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "No problem. According to Rotten Tomatoes, #{real_movie_title} got a rating of #{movie_rating}%."}.to_json
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "No problem. According to Rotten Tomatoes, #{real_movie_title} got a rating of #{movie_rating}%. #{movie_consensus}"}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			end
