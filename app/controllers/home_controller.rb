@@ -85,11 +85,11 @@ class HomeController < ApplicationController
 				movie_title_len_mod = movie_title.length-1
 				for i in 0..movie_title_len_mod
 					if i == movie_title_len_mod
-						changed_title << "#{movie_title[i]}"
-						real_movie_title << "#{movie_title[i]}"
+						changed_title << movie_title[i]
+						real_movie_title << movie_title[i]
 					else
 						changed_title << "#{movie_title[i]}&"
-						real_movie_title << "#{movie_title} "
+						real_movie_title << "#{movie_title[i]} "
 					end
 				end
 				url = URI.parse("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=vzfnz8223sf79wn5x5f8bxa9&page_limit=10&q=#{changed_title}")
