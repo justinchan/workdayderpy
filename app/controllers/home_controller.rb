@@ -81,7 +81,7 @@ class HomeController < ApplicationController
 				total_len = text.split(" ").length
 				movie_title = text.split(" ")[2, total_len-1]
 				changed_title = ""
-				movie_title_len_mod = movie_title.length
+				movie_title_len_mod = movie_title.length-1
 				for i in 0..movie_title_len_mod
 					if i == movie_title_len_mod
 						changed_title << movie_title[i]
