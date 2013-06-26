@@ -9,13 +9,16 @@ task :tabulate do
 	count = resp["count"]
 	messages = resp["messages"]
 	top_chatter = Hash.new{|h,k| h[k] = 0}
+	top_chatter_likes = Hash.new{|h,k| h[k] = 0}
 	not_done_yet = true
 	running_count = 0
 	message_id = 0
 	messages.each do |message|
 		running_count +=1
 		user = message["name"]
+		likes = message["favorited_by"].length
 		top_chatter[user] +=1
+		top_chatter_likes[user] += likes
 		message_id = message["id"]
 	end
 	while(not_done_yet)
@@ -27,7 +30,9 @@ task :tabulate do
 		messages.each do |message|
 			running_count += 1
 			user = message["name"]
+			likes = message["favorited_by"].length
 			top_chatter[user] +=1
+			top_chatter_likes[user] += likes
 			message_id = message["id"]
 		end
 		if running_count == count
@@ -36,11 +41,11 @@ task :tabulate do
 	end
 	winner_string = ""
 	for i in 1..20
-		winner_pair = top_chatter.max_by{|k,v| v}
+		winner_pair = top_chatter_likes.max_by{|k,v| v}
 		winner_name = winner_pair[0]
 		winner_value = winner_pair[1]
 		winner_string << "#{i}) #{winner_name}, #{winner_value}. " 
-		top_chatter[winner_name] = 0
+		top_chatter_likes[winner_name] = 0
 	end
 	url = URI.parse('https://api.groupme.com/v3/bots/post')
 	post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{winner_string}"}.to_json
