@@ -137,12 +137,13 @@ class HomeController < ApplicationController
 				else
 					xml_data.elements.each('root/station/etd/estimate/minutes') do |time| 
 						if counter == length
-							times << "#{times.text}, "
+							times << "and #{times.text}"
 						else
 							times << "#{times.text}, "
 							counter += 1
 						end
 					end
+				end
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
 				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Trains leaving West Dublin station for San Francisco arriving in #{times} minutes."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
