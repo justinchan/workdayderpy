@@ -128,7 +128,7 @@ class HomeController < ApplicationController
 				url = URI.parse("http://api.bart.gov/api/etd.aspx?cmd=etd&orig=wdub&key=MW9S-E7SL-26DU-VV8V&dir=s")
 				resp_temp = Net::HTTP.get_response(url).body
 				xml_data = REXML::Document.new(resp_temp)
-				xml_data.elements.each('etd/estimate/minutes') do |time| 
+				xml_data.elements.each('root/station/etd/estimate/minutes') do |time| 
 					times << "#{time.text} " 
 				end
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
