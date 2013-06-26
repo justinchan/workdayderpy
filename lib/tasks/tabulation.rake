@@ -45,11 +45,11 @@ task :tabulate do
 		top_chatter_ratio[key] = top_chatter_likes[key].to_f/top_chatter[key].to_f
 	end
 	for i in 1..20
-		winner_pair = top_chatter_ratio.max_by{|k,v| v}
+		winner_pair = top_chatter.max_by{|k,v| v}
 		winner_name = winner_pair[0]
 		winner_value = winner_pair[1]
 		winner_string << "#{i}) #{winner_name}, #{winner_value}. " 
-		top_chatter_ratio[winner_name] = 0
+		top_chatter[winner_name] = 0
 	end
 	url = URI.parse('https://api.groupme.com/v3/bots/post')
 	post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{winner_string}"}.to_json
