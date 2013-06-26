@@ -2,6 +2,7 @@ class HomeController < ApplicationController
 	def index
 		require 'net/http'
 		require 'json'
+		require 'rexml/document'
 		text = params[:text].downcase
 
 		if params[:name] != 'Lady Gaga'
@@ -119,6 +120,19 @@ class HomeController < ApplicationController
 				else
 					post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "No problem. According to Rotten Tomatoes, #{movie_title_forreal} got a rating of #{movie_rating}%. #{movie_consensus}"}.to_json
 				end
+				a = ActiveSupport::JSON.decode(post_args)
+				resp, data = Net::HTTP.post_form(url, a)
+			elsif text == 'kanye next train to SF'
+				#insert stuff here
+				times = ""
+				url = URI.parse("http://api.bart.gov/api/etd.aspx?cmd=etd&orig=wdub&key=MW9S-E7SL-26DU-VV8V&dir=s")
+				resp_temp = Net::HTTP.get_response(url).body
+				xml_data = REXML::Document.new(resp_temp)
+				xml_data.elements.each('etd/estimate/minutes') do |time| 
+					times << "#{time.text} " 
+				end
+				url = URI.parse('https://api.groupme.com/v3/bots/post')
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Trains leaving SF from West Dublin in #{times} minutes."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			end
