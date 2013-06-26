@@ -40,8 +40,12 @@ task :tabulate do
 		end
 	end
 	winner_string = ""
+	top_chatter_ratio = Hash.new{|h,k| h[k] = 0.0}
+	top_chatter.keys.each do |key|
+		top_chatter_ratio[key] = top_chatter_likes[key]/top_chatter[key]
+	end
 	for i in 1..20
-		winner_pair = top_chatter_likes.max_by{|k,v| v}
+		winner_pair = top_chatter_ratio.max_by{|k,v| v}
 		winner_name = winner_pair[0]
 		winner_value = winner_pair[1]
 		winner_string << "#{i}) #{winner_name}, #{winner_value}. " 
