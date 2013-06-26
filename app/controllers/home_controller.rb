@@ -141,6 +141,7 @@ class HomeController < ApplicationController
 							times << "and #{leaving_times[i]}"
 						else
 							times << "#{leaving_times[i]}, "
+						end
 					end
 				end
 
