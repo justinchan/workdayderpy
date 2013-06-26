@@ -128,22 +128,22 @@ class HomeController < ApplicationController
 				url = URI.parse("http://api.bart.gov/api/etd.aspx?cmd=etd&orig=wdub&key=MW9S-E7SL-26DU-VV8V&dir=s")
 				resp_temp = Net::HTTP.get_response(url).body
 				xml_data = REXML::Document.new(resp_temp)
-				leaving_times_length = xml_data.elements.each('root/station/etd/estimate/minutes').length
-				counter = 1
+				leaving_times = []
+				xml_data.elements.each('root/station/etd/estimate/minutes') do |time| 
+					leaving_times << time.text
+				end
+				leaving_times_length = leaving_times.length
 				if leaving_times_length == 1
-					xml_data.elements.each('root/station/etd/estimate/minutes') do |time| 
-						times << "#{time.text}" 
-					end
+					times = "#{leaving_times[0]}"
 				else
-					xml_data.elements.each('root/station/etd/estimate/minutes') do |time| 
-						if counter == length
-							times << "and #{times.text}"
+					for i in 0..leaving_times.length-1
+						if i == leaving_times.length-1
+							times << "and #{leaving_times[i]}"
 						else
-							times << "#{times.text}, "
-							counter += 1
-						end
+							times << "#{leaving_times[i]}, "
 					end
 				end
+
 				url = URI.parse('https://api.groupme.com/v3/bots/post')
 				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Trains leaving West Dublin station for San Francisco arriving in #{times} minutes."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
