@@ -106,14 +106,10 @@ class HomeController < ApplicationController
 				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Trains leaving West Dublin station for San Francisco arriving in #{times} minutes."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
-			elsif text == 'kanye did the a\'s win'
+			elsif text == "kanye did the a\'s win"
 				url = URI.parse("http://partner.mlb.com/partnerxml/gen/news/rss/oak.xml")
 				resp_temp = Net::HTTP.get_response(url).body
 				xml_data = REXML::Document.new(resp_temp)
-				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{xml_data}"}.to_json
-				a = ActiveSupport::JSON.decode(post_args)
-				resp, data = Net::HTTP.post_form(url, a)
 				xml_data.elements.each('description') do |desc| 
 					#if /\d-\d.{0,30}(victory|win)/.match(desc) != nil
 						url = URI.parse('https://api.groupme.com/v3/bots/post')
