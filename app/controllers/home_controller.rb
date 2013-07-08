@@ -113,12 +113,22 @@ class HomeController < ApplicationController
 				xml_data.elements.each('rss/channel/item/description') do |desc| 
 					if /(\d)*-(\d)*.{0,30}(victory|win)/.match(desc.text) != nil
 						url = URI.parse('https://api.groupme.com/v3/bots/post')
-						post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{desc}"}.to_json
+						post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Yes they did. #{desc.text}"}.to_json
+						a = ActiveSupport::JSON.decode(post_args)
+						resp, data = Net::HTTP.post_form(url, a)
+						break
+					elsif /(\d)*-(\d)*.{0,30}loss/.match(desc.text) != nil
+						url = URI.parse('https://api.groupme.com/v3/bots/post')
+						post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "No they did not. #{desc.text}"}.to_json
 						a = ActiveSupport::JSON.decode(post_args)
 						resp, data = Net::HTTP.post_form(url, a)
 						break
 					end
 				end
+				url = URI.parse('https://api.groupme.com/v3/bots/post')
+				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Justin wrote bad code."}.to_json
+				a = ActiveSupport::JSON.decode(post_args)
+				resp, data = Net::HTTP.post_form(url, a)
 			end
 		end
 	end
