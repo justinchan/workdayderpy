@@ -106,7 +106,7 @@ class HomeController < ApplicationController
 				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Trains leaving West Dublin station for San Francisco arriving in #{times} minutes."}.to_json
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
-			elsif text == "kanye did the a\'s win"
+			elsif /\Akanye did the (a's|giants) win\z/.match(text) != nil
 				url = URI.parse("http://partner.mlb.com/partnerxml/gen/news/rss/oak.xml")
 				resp_temp = Net::HTTP.get_response(url).body
 				xml_data = REXML::Document.new(resp_temp)
