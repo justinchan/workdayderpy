@@ -107,7 +107,13 @@ class HomeController < ApplicationController
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			elsif /\Akanye did the (a's|giants) win\z/.match(text) != nil
-				url = URI.parse("http://partner.mlb.com/partnerxml/gen/news/rss/oak.xml")
+				team = ""
+				if /\Akanye did the a's win\z/.match(text) != nil
+					team = "oak"
+				elsif /\Akanye did the giants win\z/.match(text) != nil
+					team = "sf"
+				end
+				url = URI.parse("http://partner.mlb.com/partnerxml/gen/news/rss/#{team}.xml")
 				resp_temp = Net::HTTP.get_response(url).body
 				xml_data = REXML::Document.new(resp_temp)
 				xml_data.elements.each('rss/channel/item/description') do |desc| 
