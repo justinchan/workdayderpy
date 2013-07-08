@@ -108,7 +108,7 @@ class HomeController < ApplicationController
 				resp, data = Net::HTTP.post_form(url, a)
 			elsif text == 'kanye did the a\'s win'
 				url = URI.parse("http://partner.mlb.com/partnerxml/gen/news/rss/oak.xml")
-				resp_temp = Net::HTTP.get_response(url).body
+				resp_temp = Net::HTTP.get_response(url)
 				xml_data = REXML::Document.new(resp_temp)
 				xml_data.elements.each('description') do |desc| 
 					#if /\d-\d.{0,30}(victory|win)/.match(desc) != nil
