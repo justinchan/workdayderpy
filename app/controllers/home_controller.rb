@@ -107,6 +107,10 @@ class HomeController < ApplicationController
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			elsif text == "kanye did the a\'s win"
+				url = URI.parse('https://api.groupme.com/v3/bots/post')
+						post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "hi"}.to_json
+						a = ActiveSupport::JSON.decode(post_args)
+						resp, data = Net::HTTP.post_form(url, a)
 				url = URI.parse("http://partner.mlb.com/partnerxml/gen/news/rss/oak.xml")
 				resp_temp = Net::HTTP.get_response(url).body
 				xml_data = REXML::Document.new(resp_temp)
