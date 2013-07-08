@@ -125,10 +125,10 @@ class HomeController < ApplicationController
 						break
 					end
 				end
-				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Justin wrote bad code."}.to_json
-				a = ActiveSupport::JSON.decode(post_args)
-				resp, data = Net::HTTP.post_form(url, a)
+				# url = URI.parse('https://api.groupme.com/v3/bots/post')
+				# post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "Justin wrote bad code."}.to_json
+				# a = ActiveSupport::JSON.decode(post_args)
+				# resp, data = Net::HTTP.post_form(url, a)
 			end
 		end
 	end
