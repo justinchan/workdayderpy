@@ -39,7 +39,7 @@ class FotosController < ApplicationController
 			url = URI.parse("https://api.groupme.com/groups/4600386/messages?token=ab32b920b6940130a343663e2468da7d&before_id=#{message_id}")
 			resp_unparsed = Net::HTTP.get_response(url)
 			resp = JSON.parse resp_unparsed.body
-			@attachmen << resp
+			@attachment << resp
 			resp = resp["response"]
 			messages = resp["messages"]
 			attachments = resp["attachments"]
