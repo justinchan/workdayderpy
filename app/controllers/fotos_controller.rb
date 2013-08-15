@@ -19,7 +19,7 @@ class FotosController < ApplicationController
 		messages.each do |message|
 			running_count +=1
 			message_id = message["id"]
-			if message["picture_url"]
+			if message["picture_url"] != nil
 				@pictures << resp["picture_url"]
 			end
 		end
@@ -34,7 +34,7 @@ class FotosController < ApplicationController
 			messages.each do |message|
 				running_count += 1
 				message_id = message["id"]
-				if message["picture_url"]
+				if message["picture_url"] != nil
 					@pictures << resp["picture_url"]
 				end
 			end
