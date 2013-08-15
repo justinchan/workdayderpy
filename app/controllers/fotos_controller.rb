@@ -5,21 +5,14 @@ class FotosController < ApplicationController
 		url = URI.parse('https://api.groupme.com/groups/4600386/messages?token=ab32b920b6940130a343663e2468da7d')
 		resp_unparsed = Net::HTTP.get_response(url)
 		resp = JSON.parse resp_unparsed.body
-		@attachment = []
-		@attachment << resp
+		@pictures = []
 		resp = resp["response"]
 		count = resp["count"]
 		messages = resp["messages"]
 
 		#Begin new shit
-		attachments = resp["attachments"]
-		if attachments
-			attachments.each do |attachment|
-				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{attachment["url"]}"}.to_json
-				a = ActiveSupport::JSON.decode(post_args)
-				resp, data = Net::HTTP.post_form(url, a)
-			end
+		if resp["picture_url"]
+			@pictures << resp["picture_url"]
 		end
 
 
@@ -43,17 +36,11 @@ class FotosController < ApplicationController
 			@attachment << resp
 			resp = resp["response"]
 			messages = resp["messages"]
-			attachments = resp["attachments"]
-			if attachments
-				attachments.each do |attachment|
-					if attachment["type"] == "image"
-						url = URI.parse('https://api.groupme.com/v3/bots/post')
-						post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{attachment["url"]}"}.to_json
-						a = ActiveSupport::JSON.decode(post_args)
-						resp, data = Net::HTTP.post_form(url, a)
-					end
-				end
+
+			if resp["picture_url"]
+				@pictures << resp["picture_url"]
 			end
+
 			messages.each do |message|
 				running_count += 1
 				user = message["name"]
