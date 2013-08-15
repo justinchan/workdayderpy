@@ -4,6 +4,7 @@ Derpy::Application.routes.draw do
 
   match 'manual' => 'manual#index', :via=>:get
   match 'manual' => 'manual#post', :via=>:post
+  match 'fotos' => 'fotos#index'
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
