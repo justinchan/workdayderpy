@@ -12,6 +12,7 @@ task :tabulate do
 	#Begin new shit
 	attachments = resp["attachments"]
 	if attachments
+		derp
 		attachments.each do |attachment|
 			url = URI.parse('https://api.groupme.com/v3/bots/post')
 			post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{attachment["url"]}"}.to_json
