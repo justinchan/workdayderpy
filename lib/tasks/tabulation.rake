@@ -11,14 +11,12 @@ task :tabulate do
 
 	#Begin new shit
 	attachments = resp["attachments"]
-	if attachments
-		attachments.each do |attachment|
-			if attachment["type"] == "image"
-				url = URI.parse('https://api.groupme.com/v3/bots/post')
-				post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{attachment["url"]}"}.to_json
-				a = ActiveSupport::JSON.decode(post_args)
-				resp, data = Net::HTTP.post_form(url, a)
-			end
+	attachments.each do |attachment|
+		if(attachment["type"] == "image")
+			url = URI.parse('https://api.groupme.com/v3/bots/post')
+			post_args = {"bot_id" => '87bd4bf2d3fad44c47c534ab36', "text" => "#{attachment["url"]}"}.to_json
+			a = ActiveSupport::JSON.decode(post_args)
+			resp, data = Net::HTTP.post_form(url, a)
 		end
 	end
 
