@@ -19,6 +19,7 @@ task :tabulate do
 				a = ActiveSupport::JSON.decode(post_args)
 				resp, data = Net::HTTP.post_form(url, a)
 			end
+		end
 	end
 
 
