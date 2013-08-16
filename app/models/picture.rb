@@ -1,6 +1,6 @@
 class Picture < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :url
+  attr_accessible :name
   has_attached_file :actual_picture, :storage => :dropbox, :dropbox_credentials => Rails.root.join("config/dropbox.yml"), :path => "/:username.:extension"
 
   def picture_from_url(url_parm)
@@ -8,6 +8,6 @@ class Picture < ActiveRecord::Base
   end
   
   Paperclip.interpolates :username do |attachment, style|
-    attachment.instance.url
+    attachment.instance.name
   end
 end

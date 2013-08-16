@@ -27,7 +27,7 @@ class ScrapeController < ApplicationController
 			if picture_url
 				if !hash_table.has_key?(picture_url)
 					pic = Picture.new
-					pic.url = "#{message["name"]} #{message["created_at"]}"
+					pic.name = "#{message["name"]} #{message["created_at"]}"
 					pic.save
 					pic.actual_picture = pic.picture_from_url(picture_url)
 					pic.save
@@ -49,7 +49,7 @@ class ScrapeController < ApplicationController
 				if picture_url
 					if !hash_table.has_key?(picture_url)
 						pic = Picture.new
-						pic.url = "#{message["name"]} #{message["created_at"]}"
+						pic.name = "#{message["name"]} #{message["created_at"]}"
 						pic.save
 						pic.actual_picture = pic.picture_from_url(picture_url)
 						pic.save
