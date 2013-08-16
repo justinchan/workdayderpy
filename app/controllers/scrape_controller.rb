@@ -1,8 +1,10 @@
 class ScrapeController < ApplicationController
 	def index
 		hash_table = Hash.new
+		@existing_pictures = 0
 		Picture.all.each do |pic|
 			hash_table[pic.name] = 1
+			@existing_pictures += 1
 		end
 		require 'net/http'
 		require 'json'
@@ -16,7 +18,8 @@ class ScrapeController < ApplicationController
 
 		#Begin new shit
 		
-
+		@total_pictures = 0
+		@new_pictures = 0
 		not_done_yet = true
 		running_count = 0
 		message_id = 0
@@ -25,12 +28,14 @@ class ScrapeController < ApplicationController
 			message_id = message["id"]
 			picture_url = message["picture_url"]
 			if picture_url
+				@total_pictures += 1
 				if !hash_table.has_key?(picture_url)
 					pic = Picture.new
 					pic.name = "#{message["name"]} #{message["created_at"]}"
 					pic.save
 					pic.actual_picture = pic.picture_from_url(picture_url)
 					pic.save
+					@new_pictures += 1
 				end
 			end
 		end
@@ -47,12 +52,14 @@ class ScrapeController < ApplicationController
 				message_id = message["id"]
 				picture_url = message["picture_url"]
 				if picture_url
+					@total_pictures += 1
 					if !hash_table.has_key?(picture_url)
 						pic = Picture.new
 						pic.name = "#{message["name"]} #{message["created_at"]}"
 						pic.save
 						pic.actual_picture = pic.picture_from_url(picture_url)
 						pic.save
+						@new_pictures += 1
 					end
 				end
 			end
