@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816010124) do
+ActiveRecord::Schema.define(:version => 20130816021527) do
 
   create_table "pictures", :force => true do |t|
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
-    t.string   "url"
     t.string   "actual_picture_file_name"
     t.string   "actual_picture_content_type"
     t.integer  "actual_picture_file_size"
     t.datetime "actual_picture_updated_at"
+    t.string   "name"
   end
 
 end
