@@ -2,7 +2,7 @@ class ScrapeController < ApplicationController
 	def index
 		hash_table = Hash.new
 		Picture.all.each do |pic|
-			hash_table[pic.url] = 1
+			hash_table[pic.name] = 1
 		end
 		require 'net/http'
 		require 'json'
